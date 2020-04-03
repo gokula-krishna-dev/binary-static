@@ -185,8 +185,7 @@ jobs:
 workflows:
   build_and_push_master:
     jobs:
-      - test:
-          context: deriv-app-artifact-upload
+      - test
   tagged_release_staging:
     jobs:
       - build_push_staging:
@@ -196,7 +195,7 @@ workflows:
             tags:
               only: /^staging.*/
       - deploy_staging:
-          context: deriv-app-artifact-upload  # using context to retrieve shared secret from circle ci
+          context: deriv-app-artifact-upload
           requires:
             - build_push_staging
           filters:
@@ -213,7 +212,7 @@ workflows:
             tags:
               only: /^production.*/
       - deploy_production:
-          context: deriv-app-artifact-upload  # using context to retrieve shared secret from circle ci
+          context: deriv-app-artifact-upload
           requires:
             - build_push_production
           filters:
